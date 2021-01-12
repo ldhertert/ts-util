@@ -1,6 +1,13 @@
-export const sum = (a: number, b: number) => {
-  if ('development' === process.env.NODE_ENV) {
-    console.log('boop');
-  }
-  return a + b;
-};
+import { App } from './app'
+
+const app = new App(1)
+
+// app.init()
+//     .then(() => {
+//         return app.run()
+//     })
+//     .then(() => {
+//         return app.exit()
+//     })
+
+export { app as App }

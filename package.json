@@ -4,9 +4,10 @@
     "repository": "ldhertert/ts-util",
     "bugs": "https://github.com/ldhertert/ts-util/issues",
     "homepage": "https://github.com/ldhertert/ts-util",
+    "source": "src/index.ts",
+    "main": "dist/index.js",
     "version": "0.1.0",
     "license": "Apache-2.0",
-    "main": "dist/index.js",
     "typings": "dist/index.d.ts",
     "files": [
         "dist",
@@ -16,43 +17,14 @@
         "node": ">=10"
     },
     "scripts": {
-        "start": "tsdx watch",
-        "build": "tsdx build",
-        "test": "tsdx test",
-        "lint": "tsdx lint",
-        "prepare": "tsdx build",
-        "size": "size-limit",
-        "analyze": "size-limit --why"
+        "build": "microbundle"
     },
     "peerDependencies": {},
-    "husky": {
-        "hooks": {
-            "pre-commit": "tsdx lint"
-        }
-    },
-    "prettier": {
-        "printWidth": 80,
-        "semi": true,
-        "singleQuote": true,
-        "trailingComma": "es5"
-    },
-    "module": "dist/ts-util.esm.js",
-    "size-limit": [
-        {
-            "path": "dist/ts-util.cjs.production.min.js",
-            "limit": "10 KB"
-        },
-        {
-            "path": "dist/ts-util.esm.js",
-            "limit": "10 KB"
-        }
-    ],
     "devDependencies": {
-        "@size-limit/preset-small-lib": "^4.9.1",
-        "husky": "^4.3.7",
-        "size-limit": "^4.9.1",
-        "tsdx": "^0.14.1",
-        "tslib": "^2.1.0",
+        "microbundle": "^0.13.0",
         "typescript": "^4.1.3"
+    },
+    "dependencies": {
+        "tslog": "^3.0.5"
     }
 }
