@@ -53,7 +53,7 @@ export default class HttpClient {
         this.client = axios.create(config)
     }
 
-    async request<T = any>(method: string, url: string, options?: HttpClientConfg): WrappedResultPromise<T> {
+    async request<T = any>(url: string, options?: HttpClientConfg): WrappedResultPromise<T> {
         options = options || {}
         options.url = url
 
@@ -82,27 +82,31 @@ export default class HttpClient {
     async get<T = any>(url: string, params?:  Params, options?: HttpClientConfg) {
         options = options || {}
         options.params = options.params || params
-        const response = await this.request<T>('get', url, options)
+        options.method = 'get'
+        const response = await this.request<T>(url, options)
         return response
     }
 
     async post<T = any>(url: string, data?:  any, options?: HttpClientConfg) {
         options = options || {}
         options.data = data
-        const response = await this.request<T>('post', url, options)
+        options.method = 'POST'
+        const response = await this.request<T>(url, options)
         return response
     }
 
     async put<T = any>(url: string, data?:  any, options?: HttpClientConfg) {
         options = options || {}
         options.data = data
-        const response = await this.request<T>('put', url, options)
+        options.method = 'put'
+        const response = await this.request<T>(url, options)
         return response
     }
 
     async delete<T = any>(url: string, options?: HttpClientConfg) {
         options = options || {}
-        const response = await this.request<T>('delete', url, options)
+        options.method = 'delete'
+        const response = await this.request<T>(url, options)
         return response
     }
 
