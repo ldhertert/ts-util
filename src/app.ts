@@ -19,6 +19,5 @@ export class App {
 
     async exit() {
         this.logger.debug('Exiting')
-        process.exit(0)
     }
 }

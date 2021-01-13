@@ -104,3 +104,4 @@ dist.browser
 # TernJS port file
 .tern-port
 .DS_Store
+src/debug.ts
