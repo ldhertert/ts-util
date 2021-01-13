@@ -6,7 +6,7 @@ export class App {
 
     constructor(version: any) {
         this.version = version
-        this.logger = getLogger() // .getChildLogger({ prefix: ['child'] })
+        this.logger = getLogger(); //.getChildLogger({ prefix: ['child'] })
     }
 
     async init() {

@@ -1,4 +1,5 @@
-import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios'
+import { Result, Err, Ok } from 'ts-results';
 import { URL } from 'url'
 
 interface Headers {
@@ -21,7 +22,17 @@ interface RequestMetadata {
     },
 }
 
+function isAxiosError(error: any): error is AxiosError {
+    return (error as AxiosError).isAxiosError !== undefined;
+}
+
+export interface HttpClientError extends Error {
+    http?: RequestMetadata
+    data?: any
+}
+
 type HttpResult<T> = { data: T, http: RequestMetadata };
+type WrappedResultPromise<T> = Promise<Result<HttpResult<T>, HttpClientError>>
 
 type ExposedAxiosConfigProps = Pick<AxiosRequestConfig,
     'baseURL' | 'url' | 'timeout' | 'responseType' |
@@ -42,45 +53,56 @@ export default class HttpClient {
         this.client = axios.create(config)
     }
 
-    async request<T = any>(url: string, options?: HttpClientConfg): Promise<HttpResult<T>> {
+    async request<T = any>(method: string, url: string, options?: HttpClientConfg): WrappedResultPromise<T> {
         options = options || {}
         options.url = url
 
-        const response = await this.client.request<T>(options)
-        const result = { 
-            data: response.data,
-            http: HttpClient.extractRequestMetadata(response)
+        try {
+            const response = await this.client.request<T>(options)
+            const result = { 
+                data: response.data,
+                http: HttpClient.extractRequestMetadata(response)
+            }
+            return Ok(result)
+        } catch(err) {
+            const error: HttpClientError = {
+                name: err.name,
+                message: err.message,
+                stack: (new Error()).stack,
+            }
+
+            if (isAxiosError(err)) {
+                error.data = err.response?.data,
+                error.http = err.response ? HttpClient.extractRequestMetadata(err.response) : undefined
+            } 
+            return Err(error)
         }
-        return result
     }
 
-    async get<T = any>(url: string, params?:  Params, options?: HttpClientConfg): Promise<HttpResult<T>> {
+    async get<T = any>(url: string, params?:  Params, options?: HttpClientConfg) {
         options = options || {}
         options.params = options.params || params
-        const response = await this.request<T>(url, options)
+        const response = await this.request<T>('get', url, options)
         return response
     }
 
-    async post<T = any>(url: string, data?:  any, options?: HttpClientConfg): Promise<HttpResult<T>> {
+    async post<T = any>(url: string, data?:  any, options?: HttpClientConfg) {
         options = options || {}
-        options.method = 'post'
         options.data = data
-        const response = await this.request<T>(url, options)
+        const response = await this.request<T>('post', url, options)
         return response
     }
 
-    async put<T = any>(url: string, data?:  any, options?: HttpClientConfg): Promise<HttpResult<T>> {
+    async put<T = any>(url: string, data?:  any, options?: HttpClientConfg) {
         options = options || {}
-        options.method = 'put'
         options.data = data
-        const response = await this.request<T>(url, options)
+        const response = await this.request<T>('put', url, options)
         return response
     }
 
-    async delete<T = any>(url: string, options?: HttpClientConfg): Promise<HttpResult<T>> {
+    async delete<T = any>(url: string, options?: HttpClientConfg) {
         options = options || {}
-        options.method = 'delete'
-        const response = await this.request<T>(url, options)
+        const response = await this.request<T>('delete', url, options)
         return response
     }
 
