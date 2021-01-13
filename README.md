@@ -25,3 +25,4 @@
 * https://github.com/infinitered/apisauce
 * fs-jetpack
 * https://github.com/fullstack-build/tslog
+* https://github.com/microsoft/tsyringe 

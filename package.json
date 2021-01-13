@@ -14,13 +14,14 @@
         "src"
     ],
     "engines": {
-        "node": ">=10"
+        "node": ">=12"
     },
     "scripts": {
         "build": "microbundle"
     },
     "peerDependencies": {},
     "devDependencies": {
+        "@tsconfig/node12": "^1.0.7",
         "microbundle": "^0.13.0",
         "typescript": "^4.1.3"
     },

@@ -1,9 +1,4 @@
-import { Logger } from "tslog";
-
-const log = new Logger({ 
-    prefix: ['app'], 
-    displayDateTime: false, 
-});
+import { Logger, getLogger } from './logger';
 
 export class App {
     version: any;
@@ -11,11 +6,11 @@ export class App {
 
     constructor(version: any) {
         this.version = version
-        this.logger = log.getChildLogger({ prefix: ['child'] })
+        this.logger = getLogger() // .getChildLogger({ prefix: ['child'] })
     }
 
     async init() {
-        this.logger.warn('Initializing')
+        this.logger.info('Initializing')
     }
 
     async run() {
