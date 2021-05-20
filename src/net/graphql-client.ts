@@ -4,7 +4,7 @@ import { DocumentNode, print } from 'graphql';
 
 export interface GraphQLRequest {
     query: string,
-    variables?: any,
+    variables?: unknown,
 }
 
 interface ErrorLocation {
@@ -18,9 +18,13 @@ export interface GraphQLErrorResponse {
 }
 
 export interface GraphQLResponse {
-    data: any,
+    data: unknown,
     errors?: GraphQLErrorResponse[],
 }
+
+function isGraphQLResponse(response: unknown): response is GraphQLResponse {
+    return (response as GraphQLResponse).data !== undefined;
+  }
 
 export interface GraphQLError extends Error {
     request: GraphQLRequest
@@ -38,7 +42,7 @@ export class GraphQLClient {
         this.http = new HttpClient(options)
     }
 
-    async execute(query: string | DocumentNode, variables?: any, options?: HttpClientConfg): Promise<Result<any, HttpClientError>> {
+    async execute(query: string | DocumentNode, variables?: unknown, options?: HttpClientConfg): Promise<Result<unknown, HttpClientError<GraphQLResponse> | GraphQLError>> {
         if (typeof query !== 'string') {
             query = print(query)
         }
@@ -48,18 +52,28 @@ export class GraphQLClient {
         }
 
         const result = await this.http.post<GraphQLResponse>(this.endpoint, data, options)
-        if (result.err) {
+        if (result.err && isGraphQLResponse(result.val.data)) {
             result.val.message = result.val.data?.errors?.map((e: { message: string }) => e.message).join('\n') || result.val.message
             return Err(result.val)
+        } else if (isGraphQLResponse(result.val.data)) {
+            return Ok(result.val.data.data)
+        } else {
+            const error: GraphQLError = {
+                name: 'Unexpected response',
+                message: 'Unexpected response',
+                stack: (new Error()).stack,
+                request: data,
+                response: result.val.data as GraphQLResponse
+            }
+            return Err(error)
         }
-        return Ok(result.val.data.data)
     }
 
-    onRequest(handler: RequestInterceptor) {
+    onRequest(handler: RequestInterceptor): ReturnType<HttpClient["onRequest"]> {
         return this.http.onRequest(handler)
     }
 
-    onResponse(handler: ResponseInterceptor) {
+    onResponse(handler: ResponseInterceptor) : ReturnType<HttpClient["onResponse"]> {
         return this.http.onResponse(handler)
     }
 }

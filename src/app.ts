@@ -1,23 +1,23 @@
 import { Logger, getLogger } from './logger';
 
 export class App {
-    version: any;
+    version: string;
     logger: Logger;
 
-    constructor(version: any) {
+    constructor(version: string) {
         this.version = version
         this.logger = getLogger(); //.getChildLogger({ prefix: ['child'] })
     }
 
-    async init() {
+    async init(): Promise<void> {
         this.logger.info('Initializing')
     }
 
-    async run() {
+    async run(): Promise<void> {
         this.logger.debug('Running')
     }
 
-    async exit() {
+    async exit(): Promise<void> {
         this.logger.debug('Exiting')
     }
 }

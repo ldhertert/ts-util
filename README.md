@@ -13,6 +13,7 @@
     * Secrets
     * Credentials
 * Logging
+    * https://www.npmjs.com/package/tslog
 * Error handling
 * DI container
     * https://github.com/microsoft/tsyringe 
@@ -45,6 +46,7 @@
     * Codegen
         * https://github.com/quicktype/quicktype
     * Docs gen
+    * Linting
 * URI handling
     * http(s)
     * git

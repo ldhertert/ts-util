@@ -7,7 +7,7 @@ interface Headers {
 }
 type Params = Headers
 
-interface RequestMetadata {
+interface RequestMetadata<T> {
     request: {
         query: Params,
         headers: Headers,
@@ -18,21 +18,21 @@ interface RequestMetadata {
         headers: Headers,
         status: number,
         statusText: string,
-        content?: any,
+        content?: T,
     },
 }
 
-function isAxiosError(error: any): error is AxiosError {
+function isAxiosError(error: unknown): error is AxiosError {
     return (error as AxiosError).isAxiosError !== undefined;
 }
 
-export interface HttpClientError extends Error {
-    http?: RequestMetadata
-    data?: any
+export interface HttpClientError<T> extends Error {
+    http?: RequestMetadata<T>
+    data?: unknown
 }
 
-type HttpResult<T> = { data: T, http: RequestMetadata };
-type WrappedResultPromise<T> = Promise<Result<HttpResult<T>, HttpClientError>>
+type HttpResult<T> = { data: T, http: RequestMetadata<T> };
+type WrappedResultPromise<T> = Promise<Result<HttpResult<T>, HttpClientError<T>>>
 
 type ExposedAxiosConfigProps = Pick<AxiosRequestConfig,
     'baseURL' | 'url' | 'timeout' | 'responseType' |
@@ -44,7 +44,7 @@ export interface HttpClientConfg extends ExposedAxiosConfigProps {
 }
 
 export type RequestInterceptor = (config: AxiosRequestConfig) => Promise<AxiosRequestConfig> | void
-export type ResponseInterceptor = (response: AxiosResponse<any>) => Promise<AxiosResponse<any>> | void
+export type ResponseInterceptor = (response: AxiosResponse<unknown>) => Promise<AxiosResponse<unknown>> | void
 
 export default class HttpClient {
     protected client: AxiosInstance
@@ -53,7 +53,7 @@ export default class HttpClient {
         this.client = axios.create(config)
     }
 
-    async request<T = any>(url: string, options?: HttpClientConfg): WrappedResultPromise<T> {
+    async request<T>(url: string, options?: HttpClientConfg): WrappedResultPromise<T> {
         options = options || {}
         options.url = url
 
@@ -61,11 +61,11 @@ export default class HttpClient {
             const response = await this.client.request<T>(options)
             const result = { 
                 data: response.data,
-                http: HttpClient.extractRequestMetadata(response)
+                http: HttpClient.extractRequestMetadata<T>(response)
             }
             return Ok(result)
         } catch(err) {
-            const error: HttpClientError = {
+            const error: HttpClientError<T> = {
                 name: err.name,
                 message: err.message,
                 stack: (new Error()).stack,
@@ -79,7 +79,7 @@ export default class HttpClient {
         }
     }
 
-    async get<T = any>(url: string, params?:  Params, options?: HttpClientConfg) {
+    async get<T = unknown>(url: string, params?:  Params, options?: HttpClientConfg): WrappedResultPromise<T> {
         options = options || {}
         options.params = options.params || params
         options.method = 'get'
@@ -87,7 +87,7 @@ export default class HttpClient {
         return response
     }
 
-    async post<T = any>(url: string, data?:  any, options?: HttpClientConfg) {
+    async post<T = unknown>(url: string, data?:  unknown, options?: HttpClientConfg): WrappedResultPromise<T> {
         options = options || {}
         options.data = data
         options.method = 'POST'
@@ -95,7 +95,7 @@ export default class HttpClient {
         return response
     }
 
-    async put<T = any>(url: string, data?:  any, options?: HttpClientConfg) {
+    async put<T = unknown>(url: string, data?:  unknown, options?: HttpClientConfg): WrappedResultPromise<T> {
         options = options || {}
         options.data = data
         options.method = 'put'
@@ -103,14 +103,14 @@ export default class HttpClient {
         return response
     }
 
-    async delete<T = any>(url: string, options?: HttpClientConfg) {
+    async delete<T = unknown>(url: string, options?: HttpClientConfg): WrappedResultPromise<T> {
         options = options || {}
         options.method = 'delete'
         const response = await this.request<T>(url, options)
         return response
     }
 
-    static extractRequestMetadata(response: AxiosResponse): RequestMetadata {
+    static extractRequestMetadata<T>(response: AxiosResponse): RequestMetadata<T> {
         return {
             request: {
                 url: new URL(response.config.url || '/', response.config.baseURL).href,
@@ -127,7 +127,7 @@ export default class HttpClient {
         }
     }
 
-    onRequest(handler: RequestInterceptor) {
+    onRequest(handler: RequestInterceptor): { eject: () => void; } {
         const interceptor = this.client.interceptors.request.use(async conf => {
             const result = await handler(conf)
             return result || conf
@@ -137,7 +137,7 @@ export default class HttpClient {
         }
     }
 
-    onResponse(handler: ResponseInterceptor) {
+    onResponse(handler: ResponseInterceptor): { eject: () => void; } {
         const interceptor = this.client.interceptors.response.use(async response => {
             const result = await handler(response)
             return result || response
