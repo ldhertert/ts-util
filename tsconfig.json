@@ -2,8 +2,14 @@
     "extends": "@tsconfig/node12/tsconfig.json",
     "compilerOptions": {
         "outDir": "dist",
-        "rootDir": "src",
         "declaration": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "rootDirs": [
+            "src",
+            "tests"
+        ]
     },
+    "exclude": [
+        "dist/**/*"
+    ]
 }

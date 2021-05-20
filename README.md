@@ -7,6 +7,7 @@
 * Task runner
     * Something similar to listr
 * Configuration - config management
+    * https://github.com/sindresorhus/conf
     * Environment vars
     * Command line args
     * Config files
@@ -25,7 +26,9 @@
     * Description
 * Objects - helper classes for object manipulation
     * Serialization/Deserialization
+        * https://ajv.js.org/
     * Validation
+        * https://ajv.js.org/
     * String helpers
     * Date helpers
     * Collection helpers
@@ -36,6 +39,7 @@
 * Filesystem
     * browserfs
 * OS/process interaction
+    * execa
 * Network
     * HTTP client
     * Proxy
