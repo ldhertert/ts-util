@@ -44,6 +44,7 @@ export interface HttpClientConfg extends ExposedAxiosConfigProps {
 }
 
 export type RequestInterceptor = (config: AxiosRequestConfig) => Promise<AxiosRequestConfig> | void
+
 export type ResponseInterceptor = (response: AxiosResponse<unknown>) => Promise<AxiosResponse<unknown>> | void
 
 export default class HttpClient {

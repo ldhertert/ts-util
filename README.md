@@ -48,6 +48,7 @@
     * Testing utility
     * Build helpers to support node & web
     * Codegen
+        * https://github.com/vega/ts-json-schema-generator
         * https://github.com/quicktype/quicktype
     * Docs gen
     * Linting

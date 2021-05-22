@@ -5,11 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Debug node file",
+            "program": "${workspaceFolder}/dist/codegen/generate-json-schema.js",
+            "request": "launch",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "type": "pwa-node"
+        },
+        {
           "type": "node",
           "request": "launch",
           "name": "Debug",
-          "program": "${workspaceFolder}/src/debug.ts",
-          "preLaunchTask": "tsc: build - tsconfig.json",
+          "program": "${workspaceFolder}/src/codegen/generate-json-schema.ts",
+          "preLaunchTask": "tsc: build - tsconfig.build.json",
           "outFiles": ["${workspaceFolder}/dist/**/*.js"],
           "skipFiles": [
             "${workspaceRoot}/node_modules/**/*.js",

@@ -1,4 +1,4 @@
-import { isObject, flatten, get } from '../../src/lang/objects';
+import { isObject, flatten } from '../../src/lang/objects';
 
 test('isObject detects object', () => {
     expect(isObject({})).toBe(true);
