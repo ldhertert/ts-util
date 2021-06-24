@@ -1,50 +1,99 @@
-import { SchemaGenerator, BaseType, Definition, FunctionType, SubTypeFormatter, createFormatter, createProgram, createParser } from "ts-json-schema-generator";
-import * as fs from 'fs';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { GraphQLClient } from '../net/graphql-client'
 
-export class MyFunctionTypeFormatter implements SubTypeFormatter {
-    public supportsType(type: FunctionType): boolean {
-        return type instanceof FunctionType;
-    }
+type JSONSchema = any
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public getDefinition(_type: FunctionType): Definition {
-        // Return a custom schema for the function property.
-        return {
-            type: "object",
-            properties: {
-                isFunction: {
-                    type: "boolean",
-                    const: true,
-                },
-            },
-        };
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    public getChildren(_type: FunctionType): BaseType[] {
-        return [];
+type OperationInfo = {
+    [key: string]: {
+        input: JSONSchema
+        output: JSONSchema
     }
 }
 
-const config = {
-    path: "./src/**/http-client.ts",
-    tsconfig: "./tsconfig.build.json",
-    type: "*"
-};
+export interface GraphQLClientData {
+    queries: OperationInfo
+    mutations: OperationInfo
+    types: JSONSchema
+}
 
-try {
-    // We configure the formatter an add our custom formatter to it.
-    const formatter = createFormatter(config, (fmt) => {
-        fmt.addTypeFormatter(new MyFunctionTypeFormatter());
-    });
+export async function generateJsonSchema(accountId: string, apiKey: string): Promise<any> {
+    const client = new GraphQLClient('https://app.harness.io/gateway/api/graphql', {
+        params: {
+            accountId: accountId
+        },
+        headers: {
+            'x-api-key': apiKey
+        }
+    })
 
-    const program = createProgram(config);
-    const parser = createParser(program, config);
-    const generator = new SchemaGenerator(program, parser, formatter, config);
-    const schema = generator.createSchema(config.type);
-    const schemaString = JSON.stringify(schema, null, 4);
-    console.log(schemaString)
-    fs.writeFileSync('./dist/json-schema.json', schemaString)
-} catch (e) {
-    console.error(e)
+    const schema = await client.getJsonSchema()
+    createQueryInputTypes(schema)
+
+    return schema
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function createQueryInputTypes(schema: any): void {
+     // populate querys with inputs and outputs
+     Object.keys(schema.properties.Query.properties).forEach(key => {
+         const query = schema.properties.Query.properties[key]
+
+        // move query arguments to their own type in definitions
+        schema.definitions[key + 'Input'] = query.properties.arguments
+
+        // Create JSON schema for new input object type
+        schema.properties.Query.properties[key].properties = {
+            input: {
+                type: "object",
+                "$ref": `#/definitions/${key}Input`,
+            },
+            output: schema.properties.Query.properties[key].properties.return
+        }
+    })
+}
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export async function proecessJsonSchema(schema: any): Promise<GraphQLClientData> {
+
+    // Create  new object to hold schemas in a compact manner
+    const resources: GraphQLClientData = {
+        queries: {},
+        mutations: {},
+        types: {
+            "$id": 'harness.definitions',
+            type: 'object',
+            definitions: schema.definitions
+        }
+    }
+
+    // populate querys with inputs and outputs
+    Object.keys(schema.properties.Query.properties).forEach(key => {
+        try {
+        resources.queries[key] = {
+            input: schema.properties.Query.properties[key].properties.arguments,
+            output: schema.properties.Query.properties[key].properties.return
+        }
+        } catch (e) {
+            throw new Error(JSON.stringify(schema.properties.Query.properties[key], null, 4))
+        }
+    })
+
+    // populate mutations with inputs and outputs
+    Object.keys(schema.properties.Mutation.properties).forEach(key => {
+        resources.mutations[key] = {
+            input: schema.properties.Mutation.properties[key].properties.input,
+            output: schema.properties.Mutation.properties[key].properties.return
+        }
+    })
+
+    // Replace all references to definitions with a fully qualified path so they can live across schemas
+    let inputString = JSON.stringify(resources.queries)
+    inputString = inputString.replace(/#\/definitions/g, resources.types["$id"] + '#/definitions')
+    resources.queries = JSON.parse(inputString)
+
+    inputString = JSON.stringify(resources.mutations)
+    inputString = inputString.replace(/#\/definitions/g, resources.types["$id"] + '#/definitions')
+    resources.mutations = JSON.parse(inputString)
+
+    return resources
 }

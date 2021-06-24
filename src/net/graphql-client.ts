@@ -1,6 +1,7 @@
-import HttpClient, { HttpClientConfg, RequestInterceptor, ResponseInterceptor, HttpClientError } from './http-client'
-import { Err, Result, Ok } from 'ts-results';
-import { DocumentNode, print } from 'graphql';
+// import HttpClient, { HttpClientConfg, RequestInterceptor, ResponseInterceptor, HttpClientError } from './http-client'
+import { DocumentNode, print, getIntrospectionQuery, printSchema, buildClientSchema, IntrospectionQuery } from 'graphql';
+import HttpClient, { RequestConfig } from './http-client'
+import { fromIntrospectionQuery } from 'graphql-2-json-schema';
 
 export interface GraphQLRequest {
     query: string,
@@ -17,63 +18,84 @@ export interface GraphQLErrorResponse {
     locations: ErrorLocation[],
 }
 
-export interface GraphQLResponse {
-    data: unknown,
+export interface GraphQLResponse<T> {
+    data: T,
     errors?: GraphQLErrorResponse[],
 }
 
-function isGraphQLResponse(response: unknown): response is GraphQLResponse {
-    return (response as GraphQLResponse).data !== undefined;
-  }
+// function isGraphQLResponse(response: unknown): response is GraphQLResponse {
+//     return (response as GraphQLResponse).data !== undefined;
+// }
 
 export interface GraphQLError extends Error {
     request: GraphQLRequest
-    response: GraphQLResponse
+    response: GraphQLResponse<unknown>
 }
 
 export class GraphQLClient {
-    protected http: HttpClient;
     protected endpoint: string;
+    protected http: HttpClient;
 
-    constructor(endpoint: string, options: HttpClientConfg = {}) {
-        this.endpoint = endpoint
+    constructor(endpoint: string, options: RequestConfig = {}) {
         options.headers = options.headers || {}
         options.headers['content-type'] = options.headers['content-type']  || 'application/json'
         this.http = new HttpClient(options)
+        this.endpoint = endpoint
     }
 
-    async execute(query: string | DocumentNode, variables?: unknown, options?: HttpClientConfg): Promise<Result<unknown, HttpClientError<GraphQLResponse> | GraphQLError>> {
-        if (typeof query !== 'string') {
-            query = print(query)
+    protected handleError(request: GraphQLRequest, result: GraphQLResponse<unknown>): void {
+        if (result && result.errors && result.errors?.length > 0) {
+            const error: GraphQLError = {
+                name: 'GraphQLError',
+                message: result.errors?.map(e => e.message).join("\n"),
+                stack: (new Error()).stack,
+                request: request,
+                response: result as GraphQLResponse<unknown>
+            }
+            throw error
         }
+    }
+
+    async execute<T>(query: string | DocumentNode, variables?: unknown, options?: RequestConfig): Promise<GraphQLResponse<T>> {
         const data: GraphQLRequest = {
-            query: query,
+            query: (typeof query !== 'string') ? print(query) : query,
             variables: variables,
         }
 
-        const result = await this.http.post<GraphQLResponse>(this.endpoint, data, options)
-        if (result.err && isGraphQLResponse(result.val.data)) {
-            result.val.message = result.val.data?.errors?.map((e: { message: string }) => e.message).join('\n') || result.val.message
-            return Err(result.val)
-        } else if (isGraphQLResponse(result.val.data)) {
-            return Ok(result.val.data.data)
-        } else {
-            const error: GraphQLError = {
-                name: 'Unexpected response',
-                message: 'Unexpected response',
-                stack: (new Error()).stack,
-                request: data,
-                response: result.val.data as GraphQLResponse
-            }
-            return Err(error)
+        // eslint-disable-next-line no-useless-catch
+        try {
+            const result = await this.http.post<GraphQLResponse<T>>(this.endpoint, data, options)
+            this.handleError(data, result)
+            return result
+        } catch (err) {
+            throw err
         }
+
     }
 
-    onRequest(handler: RequestInterceptor): ReturnType<HttpClient["onRequest"]> {
-        return this.http.onRequest(handler)
+    async getIntrospectionResult(): Promise<IntrospectionQuery> {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const introspectionResult: any = await this.execute(getIntrospectionQuery())
+        return introspectionResult.data as IntrospectionQuery
     }
 
-    onResponse(handler: ResponseInterceptor) : ReturnType<HttpClient["onResponse"]> {
-        return this.http.onResponse(handler)
+    async getSchema(): Promise<string> {
+        const introspection = await this.getIntrospectionResult()
+        const sdlFormat = printSchema(buildClientSchema(introspection))
+        return sdlFormat
+
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    async getJsonSchema(): Promise<any> {
+        const introspection = await this.getIntrospectionResult()
+        const options = {
+            ignoreInternals: true,
+            nullableArrayItems: true
+        }
+
+        const jsonSchema = fromIntrospectionQuery(introspection, options);
+        return jsonSchema
+
     }
 }
