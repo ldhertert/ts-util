@@ -10,8 +10,8 @@ type Operation = {
 
 export async function CodeGen(client: GraphQLClient, typeName: string): Promise<any> {
     const introspectionResult = await client.getIntrospectionResult()
-    const jsonSchema = await client.getJsonSchema()
-    createQueryInputTypes(jsonSchema)
+    let jsonSchema = await client.getJsonSchema()
+    jsonSchema = createQueryInputTypes(jsonSchema)
 
     const queries = await generateQueries(client)
     const processed = await proecessJsonSchema(jsonSchema)

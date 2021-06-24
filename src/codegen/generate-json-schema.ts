@@ -33,7 +33,7 @@ export async function generateJsonSchema(accountId: string, apiKey: string): Pro
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function createQueryInputTypes(schema: any): void {
+export function createQueryInputTypes(schema: any): any {
      // populate querys with inputs and outputs
      Object.keys(schema.properties.Query.properties).forEach(key => {
          const query = schema.properties.Query.properties[key]
@@ -50,6 +50,8 @@ export function createQueryInputTypes(schema: any): void {
             output: schema.properties.Query.properties[key].properties.return
         }
     })
+
+    return schema
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types

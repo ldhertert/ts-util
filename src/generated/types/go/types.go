@@ -97,7 +97,7 @@ type PurpleUserGroup struct {
 
 type FluffyNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*UserGroup           `json:"return,omitempty"`   
+	Return    []*UserGroup           `json:"return"`             
 }
 
 type UserGroupConnection struct {
@@ -124,7 +124,7 @@ type User struct {
 
 type PurpleNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*User                `json:"return,omitempty"`   
+	Return    []*User                `json:"return"`             
 }
 
 type UserConnection struct {
@@ -276,7 +276,7 @@ type ReturnClass struct {
 
 type GroupEmailAddresses struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type MicrosoftTeamsWebhookURL struct {
@@ -335,12 +335,12 @@ type AccountPermissionsReturn struct {
 
 type AccountPermissionTypes struct {
 	Arguments map[string]interface{}   `json:"arguments,omitempty"`
-	Return    []*AccountPermissionType `json:"return,omitempty"`   
+	Return    []*AccountPermissionType `json:"return"`             
 }
 
 type AppPermissions struct {
 	Arguments map[string]interface{}   `json:"arguments,omitempty"`
-	Return    []*ApplicationPermission `json:"return,omitempty"`   
+	Return    []*ApplicationPermission `json:"return"`             
 }
 
 type ApplicationPermission struct {
@@ -357,7 +357,7 @@ type ApplicationPermission struct {
 
 type ActionsClass struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Actions             `json:"return,omitempty"`   
+	Return    []*Actions             `json:"return"`             
 }
 
 type ApplicationPermissionApplications struct {
@@ -372,7 +372,7 @@ type AppFilter struct {
 
 type AppIDS struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type PurpleFilterType struct {
@@ -392,12 +392,12 @@ type DeploymentPermissionFilter struct {
 
 type PurpleEnvIDS struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type PurpleFilterTypes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*FilterType          `json:"return,omitempty"`   
+	Return    []*FilterType          `json:"return"`             
 }
 
 type ApplicationPermissionEnvironments struct {
@@ -412,12 +412,12 @@ type EnvPermissionFilter struct {
 
 type FluffyEnvIDS struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type FluffyFilterTypes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*FilterType          `json:"return,omitempty"`   
+	Return    []*FilterType          `json:"return"`             
 }
 
 type PermissionType struct {
@@ -437,12 +437,12 @@ type PipelinePermissionFilter struct {
 
 type TentacledEnvIDS struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type TentacledFilterTypes struct {
 	Arguments map[string]interface{}          `json:"arguments,omitempty"`
-	Return    []*PipelinePermissionFilterType `json:"return,omitempty"`   
+	Return    []*PipelinePermissionFilterType `json:"return"`             
 }
 
 type Provisioners struct {
@@ -462,7 +462,7 @@ type FluffyFilterType struct {
 
 type ProvisionerIDS struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type ApplicationPermissionServices struct {
@@ -482,7 +482,7 @@ type TentacledFilterType struct {
 
 type ServiceIDS struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type ApplicationPermissionWorkflows struct {
@@ -497,12 +497,12 @@ type WorkflowPermissionFilter struct {
 
 type StickyEnvIDS struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type StickyFilterTypes struct {
 	Arguments map[string]interface{}          `json:"arguments,omitempty"`
-	Return    []*WorkflowPermissionFilterType `json:"return,omitempty"`   
+	Return    []*WorkflowPermissionFilterType `json:"return"`             
 }
 
 type SsoSetting struct {
@@ -538,38 +538,38 @@ type ApplicationPermissionInput struct {
 }
 
 type AppFilterInput struct {
-	AppIDS     []string        `json:"appIds,omitempty"`    
+	AppIDS     []string        `json:"appIds"`              
 	FilterType *FilterTypeEnum `json:"filterType,omitempty"`
 }
 
 type DeploymentPermissionFilterInput struct {
-	EnvIDS      []string      `json:"envIds,omitempty"`     
-	FilterTypes []*FilterType `json:"filterTypes,omitempty"`
+	EnvIDS      []string      `json:"envIds"`     
+	FilterTypes []*FilterType `json:"filterTypes"`
 }
 
 type EnvPermissionFilterInput struct {
-	EnvIDS      []string      `json:"envIds,omitempty"`     
-	FilterTypes []*FilterType `json:"filterTypes,omitempty"`
+	EnvIDS      []string      `json:"envIds"`     
+	FilterTypes []*FilterType `json:"filterTypes"`
 }
 
 type PipelinePermissionFilterInput struct {
-	EnvIDS      []string                        `json:"envIds,omitempty"`     
-	FilterTypes []*PipelinePermissionFilterType `json:"filterTypes,omitempty"`
+	EnvIDS      []string                        `json:"envIds"`     
+	FilterTypes []*PipelinePermissionFilterType `json:"filterTypes"`
 }
 
 type ProvisionerPermissionFilterInput struct {
-	FilterType     *FilterTypeEnum `json:"filterType,omitempty"`    
-	ProvisionerIDS []string        `json:"provisionerIds,omitempty"`
+	FilterType     *FilterTypeEnum `json:"filterType,omitempty"`
+	ProvisionerIDS []string        `json:"provisionerIds"`      
 }
 
 type ServicePermissionFilterInput struct {
 	FilterType *FilterTypeEnum `json:"filterType,omitempty"`
-	ServiceIDS []string        `json:"serviceIds,omitempty"`
+	ServiceIDS []string        `json:"serviceIds"`          
 }
 
 type WorkflowPermissionFilterInput struct {
-	EnvIDS      []string                        `json:"envIds,omitempty"`     
-	FilterTypes []*WorkflowPermissionFilterType `json:"filterTypes,omitempty"`
+	EnvIDS      []string                        `json:"envIds"`     
+	FilterTypes []*WorkflowPermissionFilterType `json:"filterTypes"`
 }
 
 type AddAppPermissionPayload struct {
@@ -727,7 +727,7 @@ type InfrastructureDefinition struct {
 
 type StickyNodes struct {
 	Arguments map[string]interface{}      `json:"arguments,omitempty"`
-	Return    []*InfrastructureDefinition `json:"return,omitempty"`   
+	Return    []*InfrastructureDefinition `json:"return"`             
 }
 
 type InfrastructureDefinitionConnection struct {
@@ -759,7 +759,7 @@ type Environment struct {
 
 type TentacledNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Environment         `json:"return,omitempty"`   
+	Return    []*Environment         `json:"return"`             
 }
 
 type EnvironmentConnection struct {
@@ -809,7 +809,7 @@ type InfrastructureDefinitionName struct {
 
 type ScopedToServices struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type TentacledPageInfo struct {
@@ -818,9 +818,9 @@ type TentacledPageInfo struct {
 }
 
 type InfrastructureDefinitionsArguments struct {
-	Filters []*InfrastructureDefinitionFilter `json:"filters,omitempty"`
-	Limit   float64                           `json:"limit"`            
-	Offset  *float64                          `json:"offset,omitempty"` 
+	Filters []*InfrastructureDefinitionFilter `json:"filters"`         
+	Limit   float64                           `json:"limit"`           
+	Offset  *float64                          `json:"offset,omitempty"`
 }
 
 type InfrastructureDefinitionFilter struct {
@@ -842,7 +842,7 @@ type IDFilter struct {
 
 type InfrastructureDefinitionTagFilter struct {
 	EntityType *InfrastructureDefinitionTagType `json:"entityType,omitempty"`
-	Tags       []*TagInput                      `json:"tags,omitempty"`      
+	Tags       []*TagInput                      `json:"tags"`                
 }
 
 type TagInput struct {
@@ -877,7 +877,7 @@ type EnvironmentName struct {
 
 type EnvironmentTags struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Tag                 `json:"return,omitempty"`   
+	Return    []*Tag                 `json:"return"`             
 }
 
 type Tag struct {
@@ -1009,7 +1009,7 @@ type CommitMessage struct {
 
 type DelegateSelectors struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type ReturnDescription struct {
@@ -1063,7 +1063,7 @@ type UsageScope struct {
 
 type AppEnvScopes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*AppEnvScope         `json:"return,omitempty"`   
+	Return    []*AppEnvScope         `json:"return"`             
 }
 
 type AppEnvScope struct {
@@ -1166,7 +1166,7 @@ type PipelineConnection struct {
 
 type IndigoNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Pipeline            `json:"return,omitempty"`   
+	Return    []*Pipeline            `json:"return"`             
 }
 
 // Type for pipeline
@@ -1211,7 +1211,7 @@ type PipelineName struct {
 // Variables in the Pipeline
 type PipelineVariables struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Variable            `json:"return,omitempty"`   
+	Return    []*Variable            `json:"return"`             
 }
 
 type Variable struct {
@@ -1233,7 +1233,7 @@ type AllowMultipleValues struct {
 // allowed values. Only for text variables.
 type AllowedValues struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 // Default value, Only for text variables
@@ -1268,7 +1268,7 @@ type VariableType struct {
 
 type PipelineTags struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Tag                 `json:"return,omitempty"`   
+	Return    []*Tag                 `json:"return"`             
 }
 
 type IndigoPageInfo struct {
@@ -1293,7 +1293,7 @@ type ServiceConnection struct {
 
 type IndecentNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Service             `json:"return,omitempty"`   
+	Return    []*Service             `json:"return"`             
 }
 
 // Service Type
@@ -1311,7 +1311,7 @@ type Service struct {
 
 type ArtifactSources struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []interface{}          `json:"return,omitempty"`   
+	Return    []interface{}          `json:"return"`             
 }
 
 // Artifact type deployed by this Service
@@ -1356,7 +1356,7 @@ type ServiceName struct {
 
 type ServiceTags struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Tag                 `json:"return,omitempty"`   
+	Return    []*Tag                 `json:"return"`             
 }
 
 type IndecentPageInfo struct {
@@ -1366,7 +1366,7 @@ type IndecentPageInfo struct {
 
 type ApplicationTags struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Tag                 `json:"return,omitempty"`   
+	Return    []*Tag                 `json:"return"`             
 }
 
 type ApplicationWorkflows struct {
@@ -1386,7 +1386,7 @@ type WorkflowConnection struct {
 
 type HilariousNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Workflow            `json:"return,omitempty"`   
+	Return    []*Workflow            `json:"return"`             
 }
 
 // Type Workflow
@@ -1430,13 +1430,13 @@ type WorkflowName struct {
 
 type WorkflowTags struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Tag                 `json:"return,omitempty"`   
+	Return    []*Tag                 `json:"return"`             
 }
 
 // Available variables in the Workflow
 type WorkflowVariables struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Variable            `json:"return,omitempty"`   
+	Return    []*Variable            `json:"return"`             
 }
 
 type HilariousPageInfo struct {
@@ -1492,7 +1492,7 @@ type Ec2IamCredentials struct {
 }
 
 type UsageScopeInput struct {
-	AppEnvScopes []AppEnvScopeInput `json:"appEnvScopes,omitempty"`
+	AppEnvScopes []AppEnvScopeInput `json:"appEnvScopes"`
 }
 
 type AppEnvScopeInput struct {
@@ -1525,7 +1525,7 @@ type AzureCloudProviderInput struct {
 
 type GcpCloudProviderInput struct {
 	DelegateSelector          *string  `json:"delegateSelector,omitempty"`         
-	DelegateSelectors         []string `json:"delegateSelectors,omitempty"`        
+	DelegateSelectors         []string `json:"delegateSelectors"`                  
 	Name                      string   `json:"name"`                               
 	ServiceAccountKeySecretID *string  `json:"serviceAccountKeySecretId,omitempty"`
 	SkipValidation            *bool    `json:"skipValidation,omitempty"`           
@@ -1542,9 +1542,9 @@ type K8SCloudProviderInput struct {
 }
 
 type InheritClusterDetailsClass struct {
-	DelegateName      *string          `json:"delegateName,omitempty"`     
-	DelegateSelectors []string         `json:"delegateSelectors,omitempty"`
-	UsageScope        *UsageScopeInput `json:"usageScope,omitempty"`       
+	DelegateName      *string          `json:"delegateName,omitempty"`
+	DelegateSelectors []string         `json:"delegateSelectors"`     
+	UsageScope        *UsageScopeInput `json:"usageScope,omitempty"`  
 }
 
 type ManualClusterDetailsClass struct {
@@ -1642,17 +1642,17 @@ type CreateConnectorInput struct {
 }
 
 type DockerConnectorInput struct {
-	DelegateSelectors []*string `json:"delegateSelectors,omitempty"`
-	Name              string    `json:"name"`                       
-	PasswordSecretID  *string   `json:"passwordSecretId,omitempty"` 
-	URL               string    `json:"URL"`                        
-	UserName          *string   `json:"userName,omitempty"`         
+	DelegateSelectors []*string `json:"delegateSelectors"`         
+	Name              string    `json:"name"`                      
+	PasswordSecretID  *string   `json:"passwordSecretId,omitempty"`
+	URL               string    `json:"URL"`                       
+	UserName          *string   `json:"userName,omitempty"`        
 }
 
 type GitConnectorInput struct {
 	Branch              *string                   `json:"branch,omitempty"`             
 	CustomCommitDetails *CustomCommitDetailsInput `json:"customCommitDetails,omitempty"`
-	DelegateSelectors   []string                  `json:"delegateSelectors,omitempty"`  
+	DelegateSelectors   []string                  `json:"delegateSelectors"`            
 	GenerateWebhookURL  *bool                     `json:"generateWebhookUrl,omitempty"` 
 	Name                string                    `json:"name"`                         
 	PasswordSecretID    *string                   `json:"passwordSecretId,omitempty"`   
@@ -1694,12 +1694,12 @@ type HTTPServerPlatformInput struct {
 }
 
 type NexusConnectorInput struct {
-	DelegateSelectors []*string    `json:"delegateSelectors,omitempty"`
-	Name              string       `json:"name"`                       
-	PasswordSecretID  *string      `json:"passwordSecretId,omitempty"` 
-	URL               string       `json:"URL"`                        
-	UserName          *string      `json:"userName,omitempty"`         
-	Version           NexusVersion `json:"version"`                    
+	DelegateSelectors []*string    `json:"delegateSelectors"`         
+	Name              string       `json:"name"`                      
+	PasswordSecretID  *string      `json:"passwordSecretId,omitempty"`
+	URL               string       `json:"URL"`                       
+	UserName          *string      `json:"userName,omitempty"`        
+	Version           NexusVersion `json:"version"`                   
 }
 
 type CreateConnectorPayload struct {
@@ -1920,12 +1920,12 @@ type CreateTriggerInput struct {
 
 // Action performed on trigger execute: Workflow/Pipeline execution
 type TriggerActionInput struct {
-	ArtifactSelections           []*ArtifactSelectionInput `json:"artifactSelections,omitempty"`          // Artifact Selections required for the execution
+	ArtifactSelections           []*ArtifactSelectionInput `json:"artifactSelections"`                    // Artifact Selections required for the execution
 	ContinueWithDefaultValues    *bool                     `json:"continueWithDefaultValues,omitempty"`   // Beta: Coninue with default values as defined in pipeline
 	EntityID                     string                    `json:"entityId"`                              // Entity identifier of the Workflow or Pipeline
 	ExcludeHostsWithSameArtifact *bool                     `json:"excludeHostsWithSameArtifact,omitempty"`// Skip deployment on the host, if the same artifact is already deployed
 	ExecutionType                ExecutionType             `json:"executionType"`                         // Execution type: Workflow/Pipeline
-	Variables                    []*VariableInput          `json:"variables,omitempty"`                   // Variable inputs required for the execution
+	Variables                    []*VariableInput          `json:"variables"`                             // Variable inputs required for the execution
 }
 
 type ArtifactSelectionInput struct {
@@ -1982,7 +1982,7 @@ type WebhookConditionInput struct {
 	BranchName               *string         `json:"branchName,omitempty"`              // Branch in which the filePaths exist.
 	BranchRegex              *string         `json:"branchRegex,omitempty"`             // Branch filter, can be used if using PullRequest or Push events.
 	DeployOnlyIfFilesChanged *bool           `json:"deployOnlyIfFilesChanged,omitempty"`// Only for Native Helm and Helm-based Kubernetes deployments. Event type should be PUSH.
-	FilePaths                []*string       `json:"filePaths,omitempty"`               // The file names/paths when changed and Pushed, will execute this Trigger.
+	FilePaths                []*string       `json:"filePaths"`                         // The file names/paths when changed and Pushed, will execute this Trigger.
 	GitConnectorID           *string         `json:"gitConnectorId,omitempty"`          // Source Repo Provider setup in Harness
 	GithubEvent              *GitHubEvent    `json:"githubEvent,omitempty"`             // Github event, Required if webhookSourceType = GITHUB
 	GitlabEvent              *GitlabEvent    `json:"gitlabEvent,omitempty"`             // Gitlab  event, Required if webhookSourceType = GITLAB
@@ -2072,7 +2072,7 @@ type TriggerName struct {
 
 type TriggerTags struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Tag                 `json:"return,omitempty"`   
+	Return    []*Tag                 `json:"return"`             
 }
 
 type CreateUser struct {
@@ -2088,7 +2088,7 @@ type CreateUserInput struct {
 	ClientMutationID *string  `json:"clientMutationId,omitempty"`
 	Email            string   `json:"email"`                     
 	Name             string   `json:"name"`                      
-	UserGroupIDS     []string `json:"userGroupIds,omitempty"`    
+	UserGroupIDS     []string `json:"userGroupIds"`              
 }
 
 type CreateUserPayload struct {
@@ -2122,11 +2122,11 @@ type CreateUserGroupInput struct {
 	NotificationSettings *NotificationSettingsInput `json:"notificationSettings,omitempty"`
 	Permissions          *Permissions               `json:"permissions,omitempty"`         
 	SsoSetting           *SSOSettingInput           `json:"ssoSetting,omitempty"`          
-	UserIDS              []*string                  `json:"userIds,omitempty"`             
+	UserIDS              []*string                  `json:"userIds"`                       
 }
 
 type NotificationSettingsInput struct {
-	GroupEmailAddresses       []*string                      `json:"groupEmailAddresses,omitempty"`      
+	GroupEmailAddresses       []*string                      `json:"groupEmailAddresses"`                
 	MicrosoftTeamsWebhookURL  *string                        `json:"microsoftTeamsWebhookUrl,omitempty"` 
 	PagerDutyIntegrationKey   *string                        `json:"pagerDutyIntegrationKey,omitempty"`  
 	SendMailToNewMembers      *bool                          `json:"sendMailToNewMembers,omitempty"`     
@@ -2141,11 +2141,11 @@ type SlackNotificationSettingInput struct {
 
 type Permissions struct {
 	AccountPermissions *AccountPermissionInput       `json:"accountPermissions,omitempty"`
-	AppPermissions     []*ApplicationPermissionInput `json:"appPermissions,omitempty"`    
+	AppPermissions     []*ApplicationPermissionInput `json:"appPermissions"`              
 }
 
 type AccountPermissionInput struct {
-	AccountPermissionTypes []*AccountPermissionType `json:"accountPermissionTypes,omitempty"`
+	AccountPermissionTypes []*AccountPermissionType `json:"accountPermissionTypes"`
 }
 
 type SSOSettingInput struct {
@@ -2409,9 +2409,9 @@ type ExportExecutionsArguments struct {
 
 type ExportExecutionsInput struct {
 	ClientMutationID         *string                 `json:"clientMutationId,omitempty"`        
-	Filters                  []ExportExecutionFilter `json:"filters,omitempty"`                 // Execution filters
+	Filters                  []ExportExecutionFilter `json:"filters"`                           // Execution filters
 	NotifyOnlyTriggeringUser *bool                   `json:"notifyOnlyTriggeringUser,omitempty"`// Notify only the triggering user
-	UserGroupIDS             []string                `json:"userGroupIds,omitempty"`            // User group ids
+	UserGroupIDS             []string                `json:"userGroupIds"`                      // User group ids
 }
 
 type ExportExecutionFilter struct {
@@ -2444,7 +2444,7 @@ type NumberFilter struct {
 
 type DeploymentTagFilter struct {
 	EntityType *DeploymentTagType `json:"entityType,omitempty"`
-	Tags       []*TagInput        `json:"tags,omitempty"`      
+	Tags       []*TagInput        `json:"tags"`                
 }
 
 type ExportExecutionsPayload struct {
@@ -2619,10 +2619,10 @@ type StartExecutionInput struct {
 	ExcludeHostsWithSameArtifact *bool            `json:"excludeHostsWithSameArtifact,omitempty"`// Skip deployment on the host, if the same artifact is already deployed
 	ExecutionType                ExecutionType    `json:"executionType"`                         // Workflow or Pipeline
 	Notes                        *string          `json:"notes,omitempty"`                       // Execution notes
-	ServiceInputs                []*ServiceInput  `json:"serviceInputs,omitempty"`               // Service inputs required for the execution
-	SpecificHosts                []*string        `json:"specificHosts,omitempty"`               // List of hostnames, if targeted to a specific host
+	ServiceInputs                []*ServiceInput  `json:"serviceInputs"`                         // Service inputs required for the execution
+	SpecificHosts                []*string        `json:"specificHosts"`                         // List of hostnames, if targeted to a specific host
 	TargetToSpecificHosts        *bool            `json:"targetToSpecificHosts,omitempty"`       // Set to true if the deployment target is specific hosts. Provide specificHosts field along; with this.
-	VariableInputs               []*VariableInput `json:"variableInputs,omitempty"`              // Variable inputs required for the executio
+	VariableInputs               []*VariableInput `json:"variableInputs"`                        // Variable inputs required for the executio
 }
 
 type ServiceInput struct {
@@ -2651,9 +2651,9 @@ type BuildNumberInput struct {
 
 // Parameterized artifact source input if value type is PARAMETERIZED_ARTIFACT_SOURCE
 type ParameterizedArtifactSourceInput struct {
-	ArtifactSourceName   string                 `json:"artifactSourceName"`            // name of the artifact source to which the specified build number comes from
-	BuildNumber          string                 `json:"buildNumber"`                   // build number to deploy
-	ParameterValueInputs []*ParameterValueInput `json:"parameterValueInputs,omitempty"`// parameters and their runtime values
+	ArtifactSourceName   string                 `json:"artifactSourceName"`  // name of the artifact source to which the specified build number comes from
+	BuildNumber          string                 `json:"buildNumber"`         // build number to deploy
+	ParameterValueInputs []*ParameterValueInput `json:"parameterValueInputs"`// parameters and their runtime values
 }
 
 type ParameterValueInput struct {
@@ -2841,7 +2841,7 @@ type UpdateAzureCloudProviderInput struct {
 
 type UpdateGcpCloudProviderInput struct {
 	DelegateSelector          *string  `json:"delegateSelector,omitempty"`         
-	DelegateSelectors         []string `json:"delegateSelectors,omitempty"`        
+	DelegateSelectors         []string `json:"delegateSelectors"`                  
 	Name                      *string  `json:"name,omitempty"`                     
 	ServiceAccountKeySecretID *string  `json:"serviceAccountKeySecretId,omitempty"`
 	SkipValidation            *bool    `json:"skipValidation,omitempty"`           
@@ -2858,9 +2858,9 @@ type UpdateK8SCloudProviderInput struct {
 }
 
 type UpdateInheritClusterDetails struct {
-	DelegateName      *string          `json:"delegateName,omitempty"`     
-	DelegateSelectors []string         `json:"delegateSelectors,omitempty"`
-	UsageScope        *UsageScopeInput `json:"usageScope,omitempty"`       
+	DelegateName      *string          `json:"delegateName,omitempty"`
+	DelegateSelectors []string         `json:"delegateSelectors"`     
+	UsageScope        *UsageScopeInput `json:"usageScope,omitempty"`  
 }
 
 type UpdateManualClusterDetails struct {
@@ -2961,7 +2961,7 @@ type UpdateConnectorInput struct {
 type UpdateGitConnectorInput struct {
 	Branch              *string                   `json:"branch,omitempty"`             
 	CustomCommitDetails *CustomCommitDetailsInput `json:"customCommitDetails,omitempty"`
-	DelegateSelectors   []string                  `json:"delegateSelectors,omitempty"`  
+	DelegateSelectors   []string                  `json:"delegateSelectors"`            
 	GenerateWebhookURL  *bool                     `json:"generateWebhookUrl,omitempty"` 
 	Name                *string                   `json:"name,omitempty"`               
 	PasswordSecretID    *string                   `json:"passwordSecretId,omitempty"`   
@@ -3123,7 +3123,7 @@ type UpdateUserInput struct {
 	ClientMutationID *string  `json:"clientMutationId,omitempty"`
 	ID               string   `json:"id"`                        
 	Name             *string  `json:"name,omitempty"`            
-	UserGroupIDS     []string `json:"userGroupIds,omitempty"`    
+	UserGroupIDS     []string `json:"userGroupIds"`              
 }
 
 type UpdateUserPayload struct {
@@ -3158,7 +3158,7 @@ type UpdateUserGroupInput struct {
 	Permissions          *Permissions               `json:"permissions,omitempty"`         
 	SsoSetting           *SSOSettingInput           `json:"ssoSetting,omitempty"`          
 	UserGroupID          string                     `json:"userGroupId"`                   
-	UserIDS              []*string                  `json:"userIds,omitempty"`             
+	UserIDS              []*string                  `json:"userIds"`                       
 }
 
 type UpdateUserGroupPayload struct {
@@ -3289,9 +3289,9 @@ type QueryApplications struct {
 }
 
 type ApplicationsInput struct {
-	Filters []*ApplicationFilter `json:"filters,omitempty"`
-	Limit   float64              `json:"limit"`            
-	Offset  *float64             `json:"offset,omitempty"` 
+	Filters []*ApplicationFilter `json:"filters"`         
+	Limit   float64              `json:"limit"`           
+	Offset  *float64             `json:"offset,omitempty"`
 }
 
 type ApplicationFilter struct {
@@ -3301,7 +3301,7 @@ type ApplicationFilter struct {
 
 type ApplicationTagFilter struct {
 	EntityType *TagType    `json:"entityType,omitempty"`
-	Tags       []*TagInput `json:"tags,omitempty"`      
+	Tags       []*TagInput `json:"tags"`                
 }
 
 type ApplicationConnection struct {
@@ -3311,7 +3311,7 @@ type ApplicationConnection struct {
 
 type AmbitiousNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Application         `json:"return,omitempty"`   
+	Return    []*Application         `json:"return"`             
 }
 
 type AmbitiousPageInfo struct {
@@ -3366,9 +3366,9 @@ type Artifacts struct {
 }
 
 type ArtifactsInput struct {
-	Filters []*ArtifactFilter `json:"filters,omitempty"`
-	Limit   float64           `json:"limit"`            
-	Offset  *float64          `json:"offset,omitempty"` 
+	Filters []*ArtifactFilter `json:"filters"`         
+	Limit   float64           `json:"limit"`           
+	Offset  *float64          `json:"offset,omitempty"`
 }
 
 type ArtifactFilter struct {
@@ -3384,7 +3384,7 @@ type ArtifactConnection struct {
 
 type CunningNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Artifact            `json:"return,omitempty"`   
+	Return    []*Artifact            `json:"return"`             
 }
 
 type CunningPageInfo struct {
@@ -3400,9 +3400,9 @@ type AuditChangeContent struct {
 }
 
 type AuditChangeContentInput struct {
-	Filters []*ChangeContentFilter `json:"filters,omitempty"`
-	Limit   float64                `json:"limit"`            
-	Offset  *float64               `json:"offset,omitempty"` 
+	Filters []*ChangeContentFilter `json:"filters"`         
+	Limit   float64                `json:"limit"`           
+	Offset  *float64               `json:"offset,omitempty"`
 }
 
 type ChangeContentFilter struct {
@@ -3417,7 +3417,7 @@ type ChangeContentConnection struct {
 
 type MagentaNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*ChangeContent       `json:"return,omitempty"`   
+	Return    []*ChangeContent       `json:"return"`             
 }
 
 type ChangeContent struct {
@@ -3477,9 +3477,9 @@ type Audits struct {
 }
 
 type AuditsInput struct {
-	Filters []*ChangeSetFilter `json:"filters,omitempty"`
-	Limit   float64            `json:"limit"`            
-	Offset  *float64           `json:"offset,omitempty"` 
+	Filters []*ChangeSetFilter `json:"filters"`         
+	Limit   float64            `json:"limit"`           
+	Offset  *float64           `json:"offset,omitempty"`
 }
 
 type ChangeSetFilter struct {
@@ -3511,7 +3511,7 @@ type ChangeSetConnection struct {
 
 type FriskyNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []interface{}          `json:"return,omitempty"`   
+	Return    []interface{}          `json:"return"`             
 }
 
 type FriskyPageInfo struct {
@@ -3526,13 +3526,13 @@ type CeClusterBillingDataClass struct {
 }
 
 type CeClusterBillingDataInput struct {
-	AggregateFunction []*CeAggregation `json:"aggregateFunction,omitempty"`
-	Filters           []*CeFilter      `json:"filters,omitempty"`          
-	GroupBy           []*CeGroupBy     `json:"groupBy,omitempty"`          
-	Limit             *float64         `json:"limit,omitempty"`            
-	Offset            *float64         `json:"offset,omitempty"`           
-	Select            []*CeSelect      `json:"select,omitempty"`           
-	SortCriteria      []*CeSort        `json:"sortCriteria,omitempty"`     
+	AggregateFunction []*CeAggregation `json:"aggregateFunction"`
+	Filters           []*CeFilter      `json:"filters"`          
+	GroupBy           []*CeGroupBy     `json:"groupBy"`          
+	Limit             *float64         `json:"limit,omitempty"`  
+	Offset            *float64         `json:"offset,omitempty"` 
+	Select            []*CeSelect      `json:"select"`           
+	SortCriteria      []*CeSort        `json:"sortCriteria"`     
 }
 
 type CeAggregation struct {
@@ -3561,17 +3561,17 @@ type CeFilter struct {
 }
 
 type CeLabelFilter struct {
-	Labels []*K8SLabelInput `json:"labels,omitempty"`
+	Labels []*K8SLabelInput `json:"labels"`
 }
 
 type K8SLabelInput struct {
-	Name   *string   `json:"name,omitempty"`  
-	Values []*string `json:"values,omitempty"`
+	Name   *string   `json:"name,omitempty"`
+	Values []*string `json:"values"`        
 }
 
 type CeTagFilter struct {
 	EntityType *CeTagType  `json:"entityType,omitempty"`
-	Tags       []*TagInput `json:"tags,omitempty"`      
+	Tags       []*TagInput `json:"tags"`                
 }
 
 type CeGroupBy struct {
@@ -3595,7 +3595,7 @@ type CeTimeAggregation struct {
 }
 
 type CeSelect struct {
-	Labels []*string `json:"labels,omitempty"`
+	Labels []*string `json:"labels"`
 }
 
 type CeSort struct {
@@ -3609,7 +3609,7 @@ type OutputClass struct {
 
 type Data struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*BillingDataEntry    `json:"return,omitempty"`   
+	Return    []*BillingDataEntry    `json:"return"`             
 }
 
 type BillingDataEntry struct {
@@ -3766,7 +3766,7 @@ type PodClass struct {
 
 type SelectedLabels struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*CeK8SLabels         `json:"return,omitempty"`   
+	Return    []*CeK8SLabels         `json:"return"`             
 }
 
 type CeK8SLabels struct {
@@ -3876,9 +3876,9 @@ type CloudProviders struct {
 }
 
 type CloudProvidersInput struct {
-	Filters []*CloudProviderFilter `json:"filters,omitempty"`
-	Limit   float64                `json:"limit"`            
-	Offset  *float64               `json:"offset,omitempty"` 
+	Filters []*CloudProviderFilter `json:"filters"`         
+	Limit   float64                `json:"limit"`           
+	Offset  *float64               `json:"offset,omitempty"`
 }
 
 type CloudProviderFilter struct {
@@ -3890,12 +3890,12 @@ type CloudProviderFilter struct {
 
 type CloudProviderTypeFilter struct {
 	Operator *Operator            `json:"operator,omitempty"`
-	Values   []*CloudProviderType `json:"values,omitempty"`  
+	Values   []*CloudProviderType `json:"values"`            
 }
 
 type CEEnabledFilter struct {
 	Operator *Operator `json:"operator,omitempty"`
-	Values   []*bool   `json:"values,omitempty"`  
+	Values   []*bool   `json:"values"`            
 }
 
 type CloudProviderConnection struct {
@@ -3905,7 +3905,7 @@ type CloudProviderConnection struct {
 
 type MischievousNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []interface{}          `json:"return,omitempty"`   
+	Return    []interface{}          `json:"return"`             
 }
 
 type MischievousPageInfo struct {
@@ -3930,9 +3930,9 @@ type Connectors struct {
 }
 
 type ConnectorsInput struct {
-	Filters []*ConnectorFilter `json:"filters,omitempty"`
-	Limit   float64            `json:"limit"`            
-	Offset  *float64           `json:"offset,omitempty"` 
+	Filters []*ConnectorFilter `json:"filters"`         
+	Limit   float64            `json:"limit"`           
+	Offset  *float64           `json:"offset,omitempty"`
 }
 
 type ConnectorFilter struct {
@@ -3943,7 +3943,7 @@ type ConnectorFilter struct {
 
 type ConnectorTypeFilter struct {
 	Operator *Operator        `json:"operator,omitempty"`
-	Values   []*ConnectorType `json:"values,omitempty"`  
+	Values   []*ConnectorType `json:"values"`            
 }
 
 type ConnectorConnection struct {
@@ -3953,7 +3953,7 @@ type ConnectorConnection struct {
 
 type BraggadociousNodes struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []interface{}          `json:"return,omitempty"`   
+	Return    []interface{}          `json:"return"`             
 }
 
 type BraggadociousPageInfo struct {
@@ -3969,10 +3969,10 @@ type DeploymentStats struct {
 
 type DeploymentStatsInput struct {
 	AggregateFunction         *DeploymentAggregationFunction `json:"aggregateFunction,omitempty"`        
-	Filters                   []*DeploymentFilter            `json:"filters,omitempty"`                  
-	GroupBy                   []*DeploymentAggregation       `json:"groupBy,omitempty"`                  
+	Filters                   []*DeploymentFilter            `json:"filters"`                            
+	GroupBy                   []*DeploymentAggregation       `json:"groupBy"`                            
 	IncludeIndirectExecutions *bool                          `json:"includeIndirectExecutions,omitempty"`
-	SortCriteria              []*DeploymentSortCriteria      `json:"sortCriteria,omitempty"`             
+	SortCriteria              []*DeploymentSortCriteria      `json:"sortCriteria"`                       
 }
 
 type DeploymentAggregationFunction struct {
@@ -4002,7 +4002,7 @@ type DeploymentFilter struct {
 
 type EnvironmentTypeFilter struct {
 	Operator *Operator          `json:"operator,omitempty"`
-	Values   []*EnvironmentType `json:"values,omitempty"`  
+	Values   []*EnvironmentType `json:"values"`            
 }
 
 type DeploymentAggregation struct {
@@ -4043,9 +4043,9 @@ type QueryEnvironments struct {
 }
 
 type EnvironmentsInput struct {
-	Filters []*EnvironmentFilter `json:"filters,omitempty"`
-	Limit   float64              `json:"limit"`            
-	Offset  *float64             `json:"offset,omitempty"` 
+	Filters []*EnvironmentFilter `json:"filters"`         
+	Limit   float64              `json:"limit"`           
+	Offset  *float64             `json:"offset,omitempty"`
 }
 
 type EnvironmentFilter struct {
@@ -4057,7 +4057,7 @@ type EnvironmentFilter struct {
 
 type EnvironmentTagFilter struct {
 	EntityType *TagType    `json:"entityType,omitempty"`
-	Tags       []*TagInput `json:"tags,omitempty"`      
+	Tags       []*TagInput `json:"tags"`                
 }
 
 // Get the execution status of a Workflow.
@@ -4077,10 +4077,10 @@ type ExecutionInputs struct {
 }
 
 type ExecutionInputsInput struct {
-	ApplicationID  string           `json:"applicationId"`           // Application identifier of a Workflow or Pipeline. Use applicationByName API to fetch this; information
-	EntityID       string           `json:"entityId"`                // Workflow or Pipeline identifier. Use WorkflowByName API to fetch this information
-	ExecutionType  ExecutionType    `json:"executionType"`           // Execution type: workflow/ pipeline
-	VariableInputs []*VariableInput `json:"variableInputs,omitempty"`// Variable inputs if the Workflow or Pipeline is templatized. Provide the required variable; values to know about the required inputs
+	ApplicationID  string           `json:"applicationId"` // Application identifier of a Workflow or Pipeline. Use applicationByName API to fetch this; information
+	EntityID       string           `json:"entityId"`      // Workflow or Pipeline identifier. Use WorkflowByName API to fetch this information
+	ExecutionType  ExecutionType    `json:"executionType"` // Execution type: workflow/ pipeline
+	VariableInputs []*VariableInput `json:"variableInputs"`// Variable inputs if the Workflow or Pipeline is templatized. Provide the required variable; values to know about the required inputs
 }
 
 type ExecutionInputsOutput struct {
@@ -4090,7 +4090,7 @@ type ExecutionInputsOutput struct {
 // List of Services that need artifact input
 type ServiceInputs struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Service             `json:"return,omitempty"`   
+	Return    []*Service             `json:"return"`             
 }
 
 // Get a list of executions, with filtering options.
@@ -4100,7 +4100,7 @@ type Executions struct {
 }
 
 type ExecutionsInput struct {
-	Filters                   []*ExecutionFilter `json:"filters,omitempty"`                  
+	Filters                   []*ExecutionFilter `json:"filters"`                            
 	IncludeIndirectExecutions *bool              `json:"includeIndirectExecutions,omitempty"`// Set this flag to true to include workflow executions along pipeline
 	Limit                     float64            `json:"limit"`                              
 	Offset                    *float64           `json:"offset,omitempty"`                   
@@ -4133,7 +4133,7 @@ type ExecutionConnection struct {
 
 type Nodes1 struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []interface{}          `json:"return,omitempty"`   
+	Return    []interface{}          `json:"return"`             
 }
 
 type PageInfo1 struct {
@@ -4169,9 +4169,9 @@ type QueryInfrastructureDefinitions struct {
 }
 
 type InfrastructureDefinitionsInput struct {
-	Filters []*InfrastructureDefinitionFilter `json:"filters,omitempty"`
-	Limit   float64                           `json:"limit"`            
-	Offset  *float64                          `json:"offset,omitempty"` 
+	Filters []*InfrastructureDefinitionFilter `json:"filters"`         
+	Limit   float64                           `json:"limit"`           
+	Offset  *float64                          `json:"offset,omitempty"`
 }
 
 // Get details about instances.
@@ -4181,9 +4181,9 @@ type Instances struct {
 }
 
 type InstancesInput struct {
-	Filters []*InstanceFilter `json:"filters,omitempty"`
-	Limit   float64           `json:"limit"`            
-	Offset  *float64          `json:"offset,omitempty"` 
+	Filters []*InstanceFilter `json:"filters"`         
+	Limit   float64           `json:"limit"`           
+	Offset  *float64          `json:"offset,omitempty"`
 }
 
 type InstanceFilter struct {
@@ -4198,7 +4198,7 @@ type InstanceFilter struct {
 
 type InstanceTagFilter struct {
 	EntityType *CeTagType  `json:"entityType,omitempty"`
-	Tags       []*TagInput `json:"tags,omitempty"`      
+	Tags       []*TagInput `json:"tags"`                
 }
 
 type InstanceConnection struct {
@@ -4208,7 +4208,7 @@ type InstanceConnection struct {
 
 type Nodes2 struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []interface{}          `json:"return,omitempty"`   
+	Return    []interface{}          `json:"return"`             
 }
 
 type PageInfo2 struct {
@@ -4223,9 +4223,9 @@ type K8SLabels struct {
 }
 
 type K8SLabelsInput struct {
-	Filters []*K8SLabelFilter `json:"filters,omitempty"`
-	Limit   float64           `json:"limit"`            
-	Offset  *float64          `json:"offset,omitempty"` 
+	Filters []*K8SLabelFilter `json:"filters"`         
+	Limit   float64           `json:"limit"`           
+	Offset  *float64          `json:"offset,omitempty"`
 }
 
 type K8SLabelFilter struct {
@@ -4243,7 +4243,7 @@ type K8SLabelConnection struct {
 
 type Nodes3 struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*K8SLabel            `json:"return,omitempty"`   
+	Return    []*K8SLabel            `json:"return"`             
 }
 
 type K8SLabel struct {
@@ -4258,7 +4258,7 @@ type K8SLabelName struct {
 
 type Values struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*string              `json:"return,omitempty"`   
+	Return    []*string              `json:"return"`             
 }
 
 type PageInfo3 struct {
@@ -4272,9 +4272,9 @@ type K8SWorkloadRecommendations struct {
 }
 
 type K8SWorkloadRecommendationsInput struct {
-	Filters []*WorkloadFilter `json:"filters,omitempty"`
-	Limit   float64           `json:"limit"`            
-	Offset  *float64          `json:"offset,omitempty"` 
+	Filters []*WorkloadFilter `json:"filters"`         
+	Limit   float64           `json:"limit"`           
+	Offset  *float64          `json:"offset,omitempty"`
 }
 
 type WorkloadFilter struct {
@@ -4291,7 +4291,7 @@ type WorkloadRecommendationConnection struct {
 
 type Nodes4 struct {
 	Arguments map[string]interface{}    `json:"arguments,omitempty"`
-	Return    []*WorkloadRecommendation `json:"return,omitempty"`   
+	Return    []*WorkloadRecommendation `json:"return"`             
 }
 
 type WorkloadRecommendation struct {
@@ -4319,7 +4319,7 @@ type ClusterName struct {
 
 type ContainerRecommendations struct {
 	Arguments map[string]interface{}     `json:"arguments,omitempty"`
-	Return    []*ContainerRecommendation `json:"return,omitempty"`   
+	Return    []*ContainerRecommendation `json:"return"`             
 }
 
 type ContainerRecommendation struct {
@@ -4350,7 +4350,7 @@ type ResourceRequirements struct {
 
 type Limits struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*ResourceEntry       `json:"return,omitempty"`   
+	Return    []*ResourceEntry       `json:"return"`             
 }
 
 type ResourceEntry struct {
@@ -4370,7 +4370,7 @@ type Quantity struct {
 
 type Requests struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*ResourceEntry       `json:"return,omitempty"`   
+	Return    []*ResourceEntry       `json:"return"`             
 }
 
 type YAML struct {
@@ -4567,9 +4567,9 @@ type QueryPipelines struct {
 }
 
 type PipelinesInput struct {
-	Filters []*PipelineFilter `json:"filters,omitempty"`
-	Limit   float64           `json:"limit"`            
-	Offset  *float64          `json:"offset,omitempty"` 
+	Filters []*PipelineFilter `json:"filters"`         
+	Limit   float64           `json:"limit"`           
+	Offset  *float64          `json:"offset,omitempty"`
 }
 
 type PipelineFilter struct {
@@ -4580,7 +4580,7 @@ type PipelineFilter struct {
 
 type PipelineTagFilter struct {
 	EntityType *PipelineTagType `json:"entityType,omitempty"`
-	Tags       []*TagInput      `json:"tags,omitempty"`      
+	Tags       []*TagInput      `json:"tags"`                
 }
 
 // Beta: Get details about secret.
@@ -4632,9 +4632,9 @@ type SecretManagers struct {
 }
 
 type SecretManagersInput struct {
-	Filters []*SecretManagerFilter `json:"filters,omitempty"`
-	Limit   float64                `json:"limit"`            
-	Offset  *float64               `json:"offset,omitempty"` 
+	Filters []*SecretManagerFilter `json:"filters"`         
+	Limit   float64                `json:"limit"`           
+	Offset  *float64               `json:"offset,omitempty"`
 }
 
 type SecretManagerFilter struct {
@@ -4644,7 +4644,7 @@ type SecretManagerFilter struct {
 
 type SecretManagerTypeFilter struct {
 	Operator *Operator            `json:"operator,omitempty"`
-	Values   []*SecretManagerType `json:"values,omitempty"`  
+	Values   []*SecretManagerType `json:"values"`            
 }
 
 type SecretManagerConnection struct {
@@ -4654,7 +4654,7 @@ type SecretManagerConnection struct {
 
 type Nodes5 struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*SecretManager       `json:"return,omitempty"`   
+	Return    []*SecretManager       `json:"return"`             
 }
 
 type PageInfo5 struct {
@@ -4679,9 +4679,9 @@ type QueryServices struct {
 }
 
 type ServicesInput struct {
-	Filters []*ServiceFilter `json:"filters,omitempty"`
-	Limit   float64          `json:"limit"`            
-	Offset  *float64         `json:"offset,omitempty"` 
+	Filters []*ServiceFilter `json:"filters"`         
+	Limit   float64          `json:"limit"`           
+	Offset  *float64         `json:"offset,omitempty"`
 }
 
 type ServiceFilter struct {
@@ -4693,12 +4693,12 @@ type ServiceFilter struct {
 
 type DeploymentTypeFilter struct {
 	Operator *Operator         `json:"operator,omitempty"`
-	Values   []*DeploymentType `json:"values,omitempty"`  
+	Values   []*DeploymentType `json:"values"`            
 }
 
 type ServiceTagFilter struct {
 	EntityType *ServiceTagType `json:"entityType,omitempty"`
-	Tags       []*TagInput     `json:"tags,omitempty"`      
+	Tags       []*TagInput     `json:"tags"`                
 }
 
 type SsoProvider struct {
@@ -4748,7 +4748,7 @@ type SSOProviderConnection struct {
 
 type Nodes6 struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*SSOProvider         `json:"return,omitempty"`   
+	Return    []*SSOProvider         `json:"return"`             
 }
 
 type PageInfo6 struct {
@@ -4800,9 +4800,9 @@ type Usages struct {
 }
 
 type UsagesArguments struct {
-	Filters []*TagUsageFilter `json:"filters,omitempty"`
-	Limit   float64           `json:"limit"`            
-	Offset  *float64          `json:"offset,omitempty"` 
+	Filters []*TagUsageFilter `json:"filters"`         
+	Limit   float64           `json:"limit"`           
+	Offset  *float64          `json:"offset,omitempty"`
 }
 
 type TagUsageFilter struct {
@@ -4813,7 +4813,7 @@ type TagUsageFilter struct {
 
 type EntityTypeFilter struct {
 	Operator *Operator     `json:"operator,omitempty"`
-	Values   []*EntityType `json:"values,omitempty"`  
+	Values   []*EntityType `json:"values"`            
 }
 
 type TagUsageConnection struct {
@@ -4823,7 +4823,7 @@ type TagUsageConnection struct {
 
 type Nodes7 struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*TagLink             `json:"return,omitempty"`   
+	Return    []*TagLink             `json:"return"`             
 }
 
 type PageInfo7 struct {
@@ -4848,9 +4848,9 @@ type QueryTags struct {
 }
 
 type TagsInput struct {
-	Filters []*TagEntityFilter `json:"filters,omitempty"`
-	Limit   float64            `json:"limit"`            
-	Offset  *float64           `json:"offset,omitempty"` 
+	Filters []*TagEntityFilter `json:"filters"`         
+	Limit   float64            `json:"limit"`           
+	Offset  *float64           `json:"offset,omitempty"`
 }
 
 type TagEntityFilter struct {
@@ -4865,7 +4865,7 @@ type TagConnection struct {
 
 type Nodes8 struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*TagEntity           `json:"return,omitempty"`   
+	Return    []*TagEntity           `json:"return"`             
 }
 
 type PageInfo8 struct {
@@ -4901,9 +4901,9 @@ type Triggers struct {
 }
 
 type TriggersInput struct {
-	Filters []*TriggerFilter `json:"filters,omitempty"`
-	Limit   float64          `json:"limit"`            
-	Offset  *float64         `json:"offset,omitempty"` 
+	Filters []*TriggerFilter `json:"filters"`         
+	Limit   float64          `json:"limit"`           
+	Offset  *float64         `json:"offset,omitempty"`
 }
 
 type TriggerFilter struct {
@@ -4914,7 +4914,7 @@ type TriggerFilter struct {
 
 type TriggerTagFilter struct {
 	EntityType *TagType    `json:"entityType,omitempty"`
-	Tags       []*TagInput `json:"tags,omitempty"`      
+	Tags       []*TagInput `json:"tags"`                
 }
 
 type TriggerConnection struct {
@@ -4924,7 +4924,7 @@ type TriggerConnection struct {
 
 type Nodes9 struct {
 	Arguments map[string]interface{} `json:"arguments,omitempty"`
-	Return    []*Trigger             `json:"return,omitempty"`   
+	Return    []*Trigger             `json:"return"`             
 }
 
 type PageInfo9 struct {
@@ -5029,9 +5029,9 @@ type QueryWorkflows struct {
 }
 
 type WorkflowsInput struct {
-	Filters []*WorkflowFilter `json:"filters,omitempty"`
-	Limit   float64           `json:"limit"`            
-	Offset  *float64          `json:"offset,omitempty"` 
+	Filters []*WorkflowFilter `json:"filters"`         
+	Limit   float64           `json:"limit"`           
+	Offset  *float64          `json:"offset,omitempty"`
 }
 
 type WorkflowFilter struct {
@@ -5043,12 +5043,12 @@ type WorkflowFilter struct {
 
 type OrchestrationWorkflowTypeFilter struct {
 	Operator *Operator                    `json:"operator,omitempty"`
-	Values   []*OrchestrationWorkflowType `json:"values,omitempty"`  
+	Values   []*OrchestrationWorkflowType `json:"values"`            
 }
 
 type WorkflowTagFilter struct {
 	EntityType *WorkflowTagType `json:"entityType,omitempty"`
-	Tags       []*TagInput      `json:"tags,omitempty"`      
+	Tags       []*TagInput      `json:"tags"`                
 }
 
 // Built-in String

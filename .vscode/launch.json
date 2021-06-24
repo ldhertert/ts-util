@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Debug node file",
-            "program": "${workspaceFolder}/dist/codegen/generate-json-schema.js",
+            "program": "${workspaceFolder}/dist/src/debug.js",
             "request": "launch",
             "skipFiles": [
                 "<node_internals>/**"
@@ -17,7 +17,7 @@
           "type": "node",
           "request": "launch",
           "name": "Debug",
-          "program": "${workspaceFolder}/src/codegen/generate-json-schema.ts",
+          "program": "${workspaceFolder}/src/debug.ts",
           "preLaunchTask": "tsc: build - tsconfig.build.json",
           "outFiles": ["${workspaceFolder}/dist/**/*.js"],
           "skipFiles": [
